@@ -1,12 +1,37 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.regex.*;
 
 public class TimeAndTimeAgain {
-    private static Scanner s = new Scanner(System.in);
-    public static void main(String args[]) {
+    
+	private static Scanner s = new Scanner(System.in);
+    private static float time1 = 0;
+    private static float time2 = 0;
+    private static float average = 0;
+    public static void main(String args[]) throws FileNotFoundException {
+    	s = new Scanner(new File("InputFile"));
     	
-    	parseInput_NoRegex();
-//    	parseInput_WithRegex();
+    	for (int i = 0; i < 1000; i++) {
+    		time1 = System.nanoTime();
+    		parseInput_NoRegex();
+    		time2 = System.nanoTime();
+    		average += (time2-time1);
+    	}
+    	float average1 = average/1000;
+    	average = 0;
+    	for (int i = 0; i < 1000; i++) {
+    		time1 = System.nanoTime();
+    		parseInput_WithRegex();
+    		time2 = System.nanoTime();
+    		average += (time2-time1);
+    	}
+    	float average2 = average/1000;
+    	
+    	
+    	System.out.println("\n\nAverage time taken for 1000 no regex: " + average1);
+    	System.out.println("Average time taken for 1000 with regex: " + average2);
+    	System.out.println(average1/average2);
       
     }
     
@@ -59,6 +84,7 @@ public class TimeAndTimeAgain {
     	
     	int numberOfIterations = Integer.parseInt(s.nextLine());
     	
+    	System.out.println();
     	for (int j = 0; j < numberOfIterations; j++) {
 		
 			String line = s.nextLine();
